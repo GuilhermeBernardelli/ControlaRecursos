@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.Master.cs" Inherits="ControlaRecursos.View.ControlaRecursos" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Sistema Controle De Recursos</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link rel="stylesheet" type="text/css" href="../CSS/StyleSheet.css" />
+    <script type="text/javascript" src="../JS/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="../JS/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../JS/jquery.maskedinput-1.3.min.js"></script>
+    <script type="text/javascript" src="../JS/JScript.js"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div id="Geral">
+                <div id="Header">
+                   <asp:Label ID="lblTituloEstacionamento" runat="server" Text="Sistema de Controle de Recursos"
+                        CssClass="lblTituloEstacionamento" Width="810"></asp:Label>
+                    <asp:Button ID="btnLogout" runat="server" Text="Logout" CssClass="buttonCSS" OnClientClick="window.document.forms[0].target='';" PostBackUrl="~/Views/Logout.aspx" UseSubmitBehavior="false" CausesValidation="false" OnClick="btnLogout_Click" Width="120px" />
+                </div>
+                
+                
+                <asp:ContentPlaceHolder ID="cphConteudo" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    </form>
+</body>
+</html>

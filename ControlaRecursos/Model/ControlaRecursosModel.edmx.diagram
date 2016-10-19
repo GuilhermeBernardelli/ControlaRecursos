@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="200a1ac397e64531a0cbda1b36989bbf" Name="Diagram1">
+        <EntityTypeShape EntityType="GTIModel.Pessoa" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GTIModel.Pessoa_Recurso" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GTIModel.Recurso" Width="1.5" PointX="5.875" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="GTIModel.FK_Pessoa_1" ManuallyRouted="false" />
+        <AssociationConnector Association="GTIModel.FK_Recurso_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

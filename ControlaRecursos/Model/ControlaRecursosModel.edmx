@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GTIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="pessoa_id" />
+          </Key>
+          <Property Name="pessoa_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_completo" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="cpf_numero" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="data_inicio" Type="datetime2" Precision="0" />
+          <Property Name="data_termino" Type="datetime2" Precision="0" />
+          <Property Name="origem_dados" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Pessoa_Recurso">
+          <Key>
+            <PropertyRef Name="pessoa_recurso_id" />
+          </Key>
+          <Property Name="pessoa_recurso_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pessoa_id" Type="int" Nullable="false" />
+          <Property Name="recurso_id" Type="int" Nullable="false" />
+          <Property Name="valor" Type="varchar" MaxLength="255" />
+          <Property Name="data_inicio" Type="datetime2" Precision="0" />
+          <Property Name="data_termino" Type="datetime2" Precision="0" />
+        </EntityType>
+        <EntityType Name="Recurso">
+          <Key>
+            <PropertyRef Name="recurso_id" />
+          </Key>
+          <Property Name="recurso_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="indicativo_ativo" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Pessoa_1">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Pessoa_Recurso" Type="Self.Pessoa_Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoa_id" />
+            </Principal>
+            <Dependent Role="Pessoa_Recurso">
+              <PropertyRef Name="pessoa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recurso_1">
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="1" />
+          <End Role="Pessoa_Recurso" Type="Self.Pessoa_Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recurso">
+              <PropertyRef Name="recurso_id" />
+            </Principal>
+            <Dependent Role="Pessoa_Recurso">
+              <PropertyRef Name="recurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GTIModelStoreContainer">
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" Schema="CadRede" store:Type="Tables" />
+          <EntitySet Name="Pessoa_Recurso" EntityType="Self.Pessoa_Recurso" Schema="CadRede" store:Type="Tables" />
+          <EntitySet Name="Recurso" EntityType="Self.Recurso" Schema="CadRede" store:Type="Tables" />
+          <AssociationSet Name="FK_Pessoa_1" Association="Self.FK_Pessoa_1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Pessoa_Recurso" EntitySet="Pessoa_Recurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recurso_1" Association="Self.FK_Recurso_1">
+            <End Role="Recurso" EntitySet="Recurso" />
+            <End Role="Pessoa_Recurso" EntitySet="Pessoa_Recurso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GTIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pessoa">
+          <Key>
+            <PropertyRef Name="pessoa_id" />
+          </Key>
+          <Property Name="pessoa_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_completo" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cpf_numero" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="data_inicio" Type="DateTime" Precision="0" />
+          <Property Name="data_termino" Type="DateTime" Precision="0" />
+          <Property Name="origem_dados" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pessoa_Recurso" Relationship="Self.FK_Pessoa_1" FromRole="Pessoa" ToRole="Pessoa_Recurso" />
+        </EntityType>
+        <EntityType Name="Pessoa_Recurso">
+          <Key>
+            <PropertyRef Name="pessoa_recurso_id" />
+          </Key>
+          <Property Name="pessoa_recurso_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pessoa_id" Type="Int32" Nullable="false" />
+          <Property Name="recurso_id" Type="Int32" Nullable="false" />
+          <Property Name="valor" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="data_inicio" Type="DateTime" Precision="0" />
+          <Property Name="data_termino" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Pessoa" Relationship="Self.FK_Pessoa_1" FromRole="Pessoa_Recurso" ToRole="Pessoa" />
+          <NavigationProperty Name="Recurso" Relationship="Self.FK_Recurso_1" FromRole="Pessoa_Recurso" ToRole="Recurso" />
+        </EntityType>
+        <EntityType Name="Recurso">
+          <Key>
+            <PropertyRef Name="recurso_id" />
+          </Key>
+          <Property Name="recurso_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="indicativo_ativo" Type="Boolean" />
+          <NavigationProperty Name="Pessoa_Recurso" Relationship="Self.FK_Recurso_1" FromRole="Recurso" ToRole="Pessoa_Recurso" />
+        </EntityType>
+        <Association Name="FK_Pessoa_1">
+          <End Role="Pessoa" Type="Self.Pessoa" Multiplicity="1" />
+          <End Role="Pessoa_Recurso" Type="Self.Pessoa_Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoa">
+              <PropertyRef Name="pessoa_id" />
+            </Principal>
+            <Dependent Role="Pessoa_Recurso">
+              <PropertyRef Name="pessoa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recurso_1">
+          <End Role="Recurso" Type="Self.Recurso" Multiplicity="1" />
+          <End Role="Pessoa_Recurso" Type="Self.Pessoa_Recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recurso">
+              <PropertyRef Name="recurso_id" />
+            </Principal>
+            <Dependent Role="Pessoa_Recurso">
+              <PropertyRef Name="recurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GTIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pessoa" EntityType="Self.Pessoa" />
+          <EntitySet Name="Pessoa_Recurso" EntityType="Self.Pessoa_Recurso" />
+          <EntitySet Name="Recurso" EntityType="Self.Recurso" />
+          <AssociationSet Name="FK_Pessoa_1" Association="Self.FK_Pessoa_1">
+            <End Role="Pessoa" EntitySet="Pessoa" />
+            <End Role="Pessoa_Recurso" EntitySet="Pessoa_Recurso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recurso_1" Association="Self.FK_Recurso_1">
+            <End Role="Recurso" EntitySet="Recurso" />
+            <End Role="Pessoa_Recurso" EntitySet="Pessoa_Recurso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GTIModelStoreContainer" CdmEntityContainer="GTIEntities">
+          <EntitySetMapping Name="Pessoa">
+            <EntityTypeMapping TypeName="GTIModel.Pessoa">
+              <MappingFragment StoreEntitySet="Pessoa">
+                <ScalarProperty Name="pessoa_id" ColumnName="pessoa_id" />
+                <ScalarProperty Name="nome_completo" ColumnName="nome_completo" />
+                <ScalarProperty Name="cpf_numero" ColumnName="cpf_numero" />
+                <ScalarProperty Name="data_inicio" ColumnName="data_inicio" />
+                <ScalarProperty Name="data_termino" ColumnName="data_termino" />
+                <ScalarProperty Name="origem_dados" ColumnName="origem_dados" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoa_Recurso">
+            <EntityTypeMapping TypeName="GTIModel.Pessoa_Recurso">
+              <MappingFragment StoreEntitySet="Pessoa_Recurso">
+                <ScalarProperty Name="pessoa_recurso_id" ColumnName="pessoa_recurso_id" />
+                <ScalarProperty Name="pessoa_id" ColumnName="pessoa_id" />
+                <ScalarProperty Name="recurso_id" ColumnName="recurso_id" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="data_inicio" ColumnName="data_inicio" />
+                <ScalarProperty Name="data_termino" ColumnName="data_termino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recurso">
+            <EntityTypeMapping TypeName="GTIModel.Recurso">
+              <MappingFragment StoreEntitySet="Recurso">
+                <ScalarProperty Name="recurso_id" ColumnName="recurso_id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="indicativo_ativo" ColumnName="indicativo_ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
